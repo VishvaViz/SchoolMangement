@@ -1,7 +1,9 @@
 const mongoose=require('mongoose')
 
 const data=new mongoose.Schema({
-    value:Object
+    student:Object,
+    teacher:Object,
+    
 })
 
 const dataSchema=new mongoose.model("data",data)

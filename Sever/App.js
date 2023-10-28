@@ -15,21 +15,47 @@ app.use(bodyParser.json())
 app.use(express.json());
 
 
-app.get('/value',async(req,resp)=>{
-    console.log('hit ')
-    const value = await data.find();
+app.get('/student',async(req,resp)=>{
     
-    return resp.status(200).json({success:true, data: value})
+    const value = await data.find();
+    const file=value.filter((result)=>{
+        return result.student
+    })
+    // console.log(file);
+   
+    return resp.status(200).json({success:true, data: file})
+})
+app.get('/teacher',async(req,resp)=>{
+    
+    const value = await data.find();
+    const file=value.filter((result)=>{
+        return result.teacher
+    })
+    console.log(file);
+   
+    return resp.status(200).json({success:true, data: file})
 })
 
-app.post('/user',async(req,resp)=>{
-    const value=req.body
-    const file={value}
-    const doc=new data(file)
+
+app.post('/student',async(req,resp)=>{
+    const student=req.body
+    const sfile={student}
+    const doc=new data(sfile)
     const res = await doc.save()
-    console.log(file)
-    resp.status(201).json(file);
+    console.log(sfile)
+    resp.status(201).json(sfile);
 })
+
+app.post('/teacher',async(req,resp)=>{
+    const teacher=req.body
+    const tfile={teacher}
+    const doc=new data(tfile)
+    const res=await doc.save()
+    console.log(tfile)
+    resp.status(201).json(tfile)
+})
+
+
 
 
 
